@@ -1,4 +1,4 @@
-import  {Login}  from '../components';
+import  { Login }  from '../components';
 import { Grid } from "@mui/material";
 
 export const Prehome = () => {
