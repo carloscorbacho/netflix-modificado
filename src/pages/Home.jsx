@@ -1,7 +1,12 @@
+import { Grid } from "@mui/material";
+import {Header, Aside, ContentHome} from "../components"
+
 export const Home = () => {
     return (
-        <>
-            <span>Home</span>
-        </>
+        <Grid className="home">
+            <Header />
+            <Aside />
+            <ContentHome />
+        </Grid>
     )
 }

@@ -1,0 +1,5 @@
+.home{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: [header-start] 4rem [header-end nav-start] 4rem [nav-end content-start] auto [content-end];
+}
