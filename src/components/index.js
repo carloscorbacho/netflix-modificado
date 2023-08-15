@@ -1,5 +1,5 @@
 
-export * from './Login';
-export * from './Header';
-export * from './Aside';
-export * from './ContentHome'
+export * from './prehome/Login';
+export * from './home/Header';
+export * from './home/Aside';
+export * from './home/ContentHome'

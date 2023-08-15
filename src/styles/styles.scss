@@ -6,13 +6,7 @@
 }
 
 //PreHome - Components
-@import "./prehome/login";
+@import "./prehome/prehome";
 
 //Home - Components
-@import "./home/generic";
-
-.home{
-  @import "./home/header";
-  @import "./home/aside";
-  @import "./home/contentHome";
-}
+@import "./home/home";

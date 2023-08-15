@@ -1,7 +1,7 @@
 import {Box, Button, TextField } from '@mui/material';
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {onLogin} from "../store/slice";
+import {onLogin} from "../../store/slice";
 import Swal from "sweetalert2";
 
 // Inicializamos los objetos
