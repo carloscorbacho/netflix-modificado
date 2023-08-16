@@ -4,8 +4,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const Header = () => {
 
@@ -24,8 +24,8 @@ export const Header = () => {
 
     const onChangeSearch = ({ target }) => {
 
+        //Actualizamos el estado del buscador
         const { value } = target;
-
         setSearch(value);
 
     }

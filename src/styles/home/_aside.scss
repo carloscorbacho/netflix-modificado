@@ -1,8 +1,39 @@
 .nav{
-  background-color: #d7d5d5;
+  background-color: black;
   color: black;
-  padding: 10px 0;
+  padding: 10px 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -1px;
+
+  .nav_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+
+    .icon-box{
+      color: white;
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+
+      &:not(:last-child){
+        margin-right: 20px;
+      }
+
+      .icon-box_img{
+        margin-bottom: 2px;
+        font-size: 30px;
+      }
+
+      .icon-box_span{
+        font-size: 14px;
+        letter-spacing: 2px;
+        font-weight: 400;
+      }
+    }
+  }
 }

@@ -5,12 +5,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px;
-    margin: auto;
-    padding: 10px 0;
+    padding: 10px 20px 0;
 
     .icon-platform{
-      width: 60px;
+      width: 50px;
     }
 
     .input-box{
@@ -30,6 +28,13 @@
 
         label{
           color: black;
+          margin-top: -3px;
+          font-size: 18px;
+          font-weight: 500;
+        }
+
+        input{
+          padding: 25px 12px 2px;
         }
 
         .css-1ff8729-MuiInputBase-root-MuiFilledInput-root:after{
@@ -40,12 +45,14 @@
 
       &_search{
         position: absolute;
-        right: 6px;
+        right: 4px;
         background-color: #e50914;
         color: white;
-        top: 5px;
-        width: 48px;
-        height: 46px;
+        top: 4px;
+        width: 43px;
+        height: 42px;
+        justify-content: center;
+        align-items: center;
 
         &:hover{
           background-color: #cd0913;
