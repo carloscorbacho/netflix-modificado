@@ -1,8 +1,70 @@
 .header{
   background-color: black;
-  color: white;
-  padding: 10px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+  .header_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    padding: 10px 0;
+
+    .icon-platform{
+      width: 60px;
+    }
+
+    .input-box{
+      background-color: white;
+      width: 380px;
+      border-radius: 32px;
+      padding: 0 20px;
+      max-width: 100%;
+      position: relative;
+
+      &_title{
+        width: 100%;
+
+        *{
+          background-color: transparent;
+        }
+
+        label{
+          color: black;
+        }
+
+        .css-1ff8729-MuiInputBase-root-MuiFilledInput-root:after{
+          border-bottom: none;
+        }
+
+      }
+
+      &_search{
+        position: absolute;
+        right: 6px;
+        background-color: #e50914;
+        color: white;
+        top: 5px;
+        width: 48px;
+        height: 46px;
+
+        &:hover{
+          background-color: #cd0913;
+        }
+      }
+
+    }
+
+    .btn-logout{
+      &:hover{
+        .btn-logout-icon{
+          color: #e50914;
+        }
+      }
+
+      .btn-logout-icon{
+        color: white;
+      }
+    }
+  }
+
 }
