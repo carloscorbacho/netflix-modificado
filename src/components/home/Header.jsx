@@ -6,6 +6,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { onLogout } from "../../store/slice";
 
 export const Header = () => {
 
@@ -28,6 +29,11 @@ export const Header = () => {
         const { value } = target;
         setSearch(value);
 
+    }
+
+    const onLogoutUser = () => {
+        //Disparamos la acción de cerrar sesión
+        dispatch( onLogout() );
     }
 
     return (
@@ -55,7 +61,7 @@ export const Header = () => {
                 </Grid>
                 <Grid>
                     <Tooltip>
-                        <IconButton className="btn-logout">
+                        <IconButton className="btn-logout" onClick={ onLogoutUser }>
                             <LogoutIcon className="btn-logout-icon"/>
                         </IconButton>
                     </Tooltip>
