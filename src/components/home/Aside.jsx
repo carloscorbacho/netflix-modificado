@@ -12,13 +12,24 @@ export const Aside = () => {
     const dispatch = useDispatch();
 
     const onClickSelectedType = ({target}) => {
+        //Obtenemos el padre .icon-box_span mas cercano
         const elementParent = target.closest('.icon-box');
         const typeSelected = elementParent.querySelector('.icon-box_span').innerHTML;
 
+        //Actualizamos el typo ya sea pelicula o serie en nuestro estado
         setSelectedType(typeSelected);
+
+        const iconBoxes = document.querySelectorAll('.icon-box');
+        iconBoxes.forEach(
+            iconBox => {
+                iconBox.classList.remove('active');
+                if(iconBox === elementParent) iconBox.classList.add('active');
+            }
+        );
     }
 
     useEffect(() => {
+        //Cada vez que cambie el tipo cambie el store
         dispatch(onSelectedType(selectedType));
     }, [selectedType])
 
