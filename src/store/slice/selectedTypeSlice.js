@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const selectedSlice = createSlice({
-    name: 'selectedSlice',
+export const selectedTypeSlice = createSlice({
+    name: 'selectedType',
     initialState: {
         selectedType: null
     },
@@ -12,4 +12,4 @@ export const selectedSlice = createSlice({
     },
 })
 
-export const { onSelectedType } = selectedSlice.actions;
+export const { onSelectedType } = selectedTypeSlice.actions;

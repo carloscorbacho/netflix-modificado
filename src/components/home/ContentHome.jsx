@@ -1,5 +1,5 @@
 import {Grid} from "@mui/material";
-import {Banner} from "./Banner";
+import { Banner } from "./Banner";
 
 export const ContentHome = () => {
     return (

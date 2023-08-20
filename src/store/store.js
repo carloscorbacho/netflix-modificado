@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authSlice, selectedSlice } from "./slice";
+import { authSlice, bannerSlice, selectedTypeSlice } from "./slice";
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
-        selectedType: selectedSlice.reducer,
+        selectedType: selectedTypeSlice.reducer,
+        banner: bannerSlice.reducer
     },
 })
