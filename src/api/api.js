@@ -55,11 +55,16 @@ export const getBanner = ( type = null ) => {
             }
         );
 
+        const url_video = (result[0].site === "YouTube")
+            ? `https://www.youtube.com/embed/${result[0].key}`
+            : `https://vimeo.com/${result[0].key}`
+
         const objectResult = {
             id: data.id,
             id_video: result[0].id,
             key: result[0].key,
-            site: result[0].type
+            site: result[0].site,
+            url_video
         }
 
         dispatch(onSelectedBanner(objectResult));
