@@ -20,9 +20,9 @@ export const ContentHome = () => {
 
     return (
         <Grid className="content">
-            {/*
+            {
                 ( banner ) && <Banner />
-            */}
+            }
 
             <Grid className="container-carousel">
                 {
