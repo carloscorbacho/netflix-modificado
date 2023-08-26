@@ -1,5 +1,5 @@
 import axios from "axios";
-import { onSelectedBanner } from '../store/slice/bannerSlice';
+import { onSelectedBanner, onPopularMovies } from '../store/slice';
 
 const baseURL = 'https://api.themoviedb.org/3';
 const tokenApi = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNGZhNDhkYmQ2NmI2Yjc0OGJkOWMzZDgyYTBmMTNmZSIsInN1YiI6IjY0ZGQwNWVjMDAxYmJkMDQxYmY0N2E1OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SvAt8zdk8dnAtFv-D5EU42qQ8h1-fTD9eSyf5UoQUbQ';
@@ -49,26 +49,28 @@ export const getBanner = ( type = null ) => {
 
         const { data } = await instanceAPI.get(url);
 
-        const result = data.results.filter(
-            (result) => {
-                return result.type === "Trailer"
+        if (data) {
+            const result = data.results.filter(
+                (result) => {
+                    return result.type === "Trailer"
+                }
+            );
+
+            const url_video = (result[0].site === "YouTube")
+                ? `https://www.youtube.com/embed/${result[0].key}`
+                : `https://vimeo.com/${result[0].key}`
+
+            const objectResult = {
+                id: data.id,
+                id_video: result[0].id,
+                key: result[0].key,
+                site: result[0].site,
+                url_video
             }
-        );
 
-        const url_video = (result[0].site === "YouTube")
-            ? `https://www.youtube.com/embed/${result[0].key}`
-            : `https://vimeo.com/${result[0].key}`
+            dispatch(onSelectedBanner(objectResult));
 
-        const objectResult = {
-            id: data.id,
-            id_video: result[0].id,
-            key: result[0].key,
-            site: result[0].site,
-            url_video
         }
-
-        dispatch(onSelectedBanner(objectResult));
-
     }
 }
 
@@ -105,5 +107,29 @@ const discoverSeriesBanner = async() => {
         console.log(e);
 
     }
+
+}
+
+export const popularMoviesList = () => {
+    return async(dispatch, getState) => {
+
+        try {
+            const { data } = await instanceAPI.get('/movie/popular');
+
+            const dataMovies = data.results.map((movie) => {
+                    return {
+                        id: movie.id,
+                        img_poster: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                    }
+            });
+
+            dispatch(onPopularMovies(dataMovies));
+
+        } catch (e){
+            console.log(e);
+        }
+
+    }
+
 
 }
