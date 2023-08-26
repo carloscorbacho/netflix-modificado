@@ -4,17 +4,35 @@
   margin-top: -1px;
 
   .banner-container{
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
+    @media (min-height: 800px) {
+      max-height: calc(100vh - ($height-header + $height-filterHeader));
+      overflow: hidden;
+    }
 
-    iframe {
-      position: absolute;
-      top:0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .banner-content{
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+
+      &_info{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+      }
+
+      iframe {
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin-top: -60px;
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import {Banner} from '../home/Banner';
 
 export const ContentHome = () => {
     const {selectedType} = useSelector(state => state.selectedType);
-    const {banner} = useSelector(state => state.banner);
+    const { banner } = useSelector(state => state.banner);
     const { popularMovies } = useSelector(state => state.movies);
     const dispatch = useDispatch();
 

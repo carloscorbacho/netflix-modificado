@@ -1,7 +1,7 @@
 .home{
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: [header-start] auto [header-end nav-start] auto [nav-end content-start] auto [content-end];
+  grid-template-rows: [header-start] $height-header [header-end nav-start] $height-filterHeader [nav-end content-start] auto [content-end];
 
   @import "../home/header";
   @import "../home/aside";

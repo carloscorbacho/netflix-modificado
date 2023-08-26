@@ -1,7 +1,7 @@
 .nav{
-  background-color: black;
+  background-color: #252525;
   color: black;
-  padding: 10px 0 20px;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,11 +32,11 @@
 
       .icon-box_img{
         margin-bottom: 2px;
-        font-size: 30px;
+        font-size: 25px;
       }
 
       .icon-box_span{
-        font-size: 14px;
+        font-size: 12px;
         letter-spacing: 2px;
         font-weight: 400;
       }

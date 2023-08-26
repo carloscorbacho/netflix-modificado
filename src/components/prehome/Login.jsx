@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {onLogin} from "../../store/slice";
 import Swal from "sweetalert2";
+import validator from 'validator';
 
 // Inicializamos los objetos
 const formData = {
@@ -78,7 +79,7 @@ export const Login = () => {
 
     const formValid = (email = '', password = '') => {
         // Si no contiene @ y es inferior a 4 carácteres el email será incorrecto
-        const emailError = email.includes('@') && email.length > 4 ? '' : 'El email es incorrecto.';
+        const emailError = validator.isEmail(email) ? '' : 'El email es incorrecto.';
 
         // Si la contraseña es inferior a 6 carácteres la contraseña será incorrecta
         const passwordError = password.length <= 6 ? 'La password es incorrecta.' : '';

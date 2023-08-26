@@ -10,12 +10,19 @@ export const Banner = () => {
 
     return (
         <Grid className="banner-container">
-            <ReactPlayer
-                url={ banner.url_video }
-                playing={ true }
-                loop={ true }
-                controls={ false }
-            />
+            <Grid className="banner-content">
+                <div className="banner-content_info">
+                    <span>Hola</span>
+                </div>
+                <ReactPlayer
+                    url={ banner.url_video }
+                    playing={ true }
+                    loop={ true }
+                    controls={ false }
+                    width='100%'
+                    height='100%'
+                />
+            </Grid>
         </Grid>
     )
 }

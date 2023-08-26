@@ -6,7 +6,6 @@ export const App = () => {
 
     const { status } = useSelector(state => state.auth);
 
-
     return (
         <>
             <Routes>
