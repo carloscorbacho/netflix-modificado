@@ -1,7 +1,5 @@
 import {Grid} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import { getBanner } from '../../api'
+import {useSelector} from "react-redux";
 import ReactPlayer from "react-player";
 
 export const Banner = () => {
@@ -12,7 +10,6 @@ export const Banner = () => {
         <Grid className="banner-container">
             <Grid className="banner-content">
                 <div className="banner-content_info">
-                    <span>Hola</span>
                 </div>
                 <ReactPlayer
                     url={ banner.url_video }

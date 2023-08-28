@@ -4,6 +4,7 @@ import MovieIcon from '@mui/icons-material/Movie';
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import { onSelectedType } from "../../store/slice";
+import {getBanner} from "../../api";
 
 
 export const Aside = () => {
@@ -31,6 +32,7 @@ export const Aside = () => {
     useEffect(() => {
         //Cada vez que cambie el tipo cambie el store
         dispatch(onSelectedType(selectedType));
+        dispatch(getBanner(selectedType));
     }, [selectedType])
 
     return (

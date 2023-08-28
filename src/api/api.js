@@ -20,7 +20,7 @@ export const getBanner = (type = null) => {
     return async (dispatch, getState) => {
 
         //Declaramos la url de la petición
-        let url, id;
+        let url;
 
         //Si no contiene ningun tipo lo hacemos al azar (para la primera vez)
         if (!type) {
@@ -33,88 +33,124 @@ export const getBanner = (type = null) => {
         //Hacemos un switch, para hacer una acción o otra en función del tipo
         switch (type) {
             case 'Series':
-                //Obtenemos el id de la serie mas popular
-                id = await discoverSeriesBanner();
-                //Creamos la url
-                if (id) url = `/tv/${id}/videos`;
-
+                const idsSeries = await discoverSeriesIds();
+                const serie = await discoverSerieBanner(idsSeries);
+                dispatch(onSelectedBanner(serie));
                 break;
             case 'Películas':
-
-                //Obtenemos el id de la pelicula mas popular
-                id = await discoverMovieBanner();
-                //Creamos la url
-                if (id) url = `/movie/${id}/videos`;
-
+                const idsMovies = await discoverMoviesIds();
+                const movie = await discoverMovieBanner(idsMovies);
+                dispatch(onSelectedBanner(movie));
                 break;
         }
+    }
+}
 
+//Función para encontrar los ids peliculas
+const discoverMoviesIds = async () => {
+    try {
+        //Hacemos la petición y extraemos los ids de las peliculas
+        const {data} = await instanceAPI.get('/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc');
+
+        const ids = data.results.map((result) => {
+            const {id} = result;
+            return id;
+        });
+
+        return ids;
+
+    } catch (e) {
+        console.error(e);
+
+        return;
+    }
+
+}
+
+//Función para encontrar los ids series
+const discoverSeriesIds = async () => {
+    try {
+        //Hacemos la petición y extraemos los ids de las series
+        const {data} = await instanceAPI.get('/discover/tv?include_adult=false&include_null_first_air_dates=true&language=en-US&page=1&sort_by=popularity.desc');
+
+        const ids = data.results.map((result) => {
+            const {id} = result;
+            return id;
+        });
+        console.log(ids);
+        return ids;
+
+    } catch (e) {
+        console.error(e);
+
+        return;
+    }
+
+}
+
+//Obtener video (pelicula)
+const discoverMovieBanner = async(ids) => {
         try {
-            //Extraemos información
-            const {data} = await instanceAPI.get(url);
+            const results = await ids.map(async(id) => {
+                const url = `/movie/${id}/videos`;
+                const { data } = await instanceAPI.get(url);
 
-            //Filtramos por trailer serie/película
-            const result = data.results.filter(
-                (result) => {
-                    return result.type === "Trailer"
+                const video = data.results.filter((item) => item.type == 'Trailer');
+
+                if(video.length > 0){
+                    return [{id_item:id, video}];
                 }
-            );
+            });
 
-            //En función si el trailer es de Youtube/Vimeo
-            const url_video = (result[0].site === "YouTube")
-                ? `https://www.youtube.com/embed/${result[0].key}`
-                : `https://vimeo.com/${result[0].key}`
+            const videos = await Promise.any(results);
+            const { id_item, video } = videos[0];
 
-            //Creamos el objeto
-            const objectResult = {
-                id: data.id,
-                id_video: result[0].id,
-                key: result[0].key,
-                site: result[0].site,
-                url_video
+            return {
+                id_item,
+                id_video: video[0].id,
+                key: video[0].key,
+                site: video[0].site,
+                url_video: (video[0].site === "YouTube")
+                    ? `https://www.youtube.com/embed/${video[0].key}`
+                    : `https://vimeo.com/${video[0].key}`
             }
 
-            //Disparamos la acción
-            dispatch(onSelectedBanner(objectResult));
-
-        } catch (e) {
-            console.log(e);
-            return;
+        } catch (e){
+            console.error(e);
         }
-    }
 }
 
-//Función para encontrar una pelicula
-const discoverMovieBanner = async () => {
+//Obtener video (serie)
+const discoverSerieBanner = async(ids) => {
     try {
-        //Hacemos la petición y extraemos el id del primer resultado
-        const {data} = await instanceAPI.get('/discover/movie?include_adult=false&include_video=true&language=en-US&page=1&sort_by=popularity.desc');
-        const {id} = data.results[0];
+        const results = await ids.map(async(id) => {
+            const url = `/tv/${id}/videos`;
+            const { data } = await instanceAPI.get(url);
 
-        return id;
+            if(data.results.length > 0){
+                return {id_item:id, video:data.results};
+            }
+        });
 
-    } catch (e) {
-        console.log(e);
-        return;
+
+        const videosPromise = await Promise.all(results);
+        const videos = videosPromise.filter((item) => !!item);
+
+        const { id_item, video } = videos[0];
+
+        return {
+            id_item,
+            id_video: video[0].id,
+            key: video[0].key,
+            site: video[0].site,
+            url_video: (video[0].site === "YouTube")
+                ? `https://www.youtube.com/embed/${video[0].key}`
+                : `https://vimeo.com/${video[0].key}`
+        }
+
+    } catch (e){
+        console.error(e);
     }
-
-}
-
-//Función para encontrar una serie
-const discoverSeriesBanner = async () => {
-
-    try {
-        //Hacemos la petición y extraemos el id del primer resultado
-        const {data} = await instanceAPI.get('/discover/tv?include_adult=false&page=1&sort_by=popularity.desc');
-        const {id} = data.results[0];
-
-        return id;
-
-    } catch (e) {
-        console.log(e);
-        return;
-    }
-
 }
 
 //Función para obtener las peliculas mas populares
@@ -137,7 +173,7 @@ export const popularMoviesList = () => {
             dispatch(onPopularMovies(dataMovies));
 
         } catch (e) {
-            console.log(e);
+            console.error(e);
             return;
         }
     }
