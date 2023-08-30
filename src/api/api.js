@@ -91,9 +91,10 @@ const discoverSeriesIds = async () => {
 //Obtener video (pelicula)
 const discoverMovieBanner = async(ids) => {
         try {
-            const results = await ids.map(async(id) => {
-                const url = `/movie/${id}/videos`;
-                const { data } = await instanceAPI.get(url);
+            //Hacemos una búsqueda de los vídeos con todos los ids encontrados antes
+            const resultsVideos = await ids.map(async(id) => {
+                const urlVideos = `/movie/${id}/videos`;
+                const { data } = await instanceAPI.get(urlVideos);
 
                 const video = data.results.filter((item) => item.type == 'Trailer');
 
@@ -102,8 +103,14 @@ const discoverMovieBanner = async(ids) => {
                 }
             });
 
-            const videos = await Promise.any(results);
+            //Obtenemos los videos y extraemos la información de los videos
+            const videos = await Promise.any(resultsVideos);
             const { id_item, video } = videos[0];
+
+            //Hacemos una búsqueda para obtener más info del id del video
+            const urlDetails = `/movie/${id_item}`;
+            const {data} =  await instanceAPI.get(urlDetails);
+            const {title, homepage} = data;
 
             return {
                 id_item,
@@ -112,7 +119,9 @@ const discoverMovieBanner = async(ids) => {
                 site: video[0].site,
                 url_video: (video[0].site === "YouTube")
                     ? `https://www.youtube.com/embed/${video[0].key}`
-                    : `https://vimeo.com/${video[0].key}`
+                    : `https://vimeo.com/${video[0].key}`,
+                title,
+                link_page: homepage
             }
 
         } catch (e){
@@ -124,8 +133,8 @@ const discoverMovieBanner = async(ids) => {
 const discoverSerieBanner = async(ids) => {
     try {
         const results = await ids.map(async(id) => {
-            const url = `/tv/${id}/videos`;
-            const { data } = await instanceAPI.get(url);
+            const urlVideos = `/tv/${id}/videos`;
+            const { data } = await instanceAPI.get(urlVideos);
 
             if(data.results.length > 0){
                 return {id_item:id, video:data.results};
@@ -138,6 +147,12 @@ const discoverSerieBanner = async(ids) => {
 
         const { id_item, video } = videos[0];
 
+        //Hacemos una búsqueda para obtener más info del id del video
+        const urlDetails = `/movie/${id_item}`;
+        const {data} =  await instanceAPI.get(urlDetails);
+        console.log(data)
+        const {title, homepage} = data;
+
         return {
             id_item,
             id_video: video[0].id,
@@ -145,7 +160,9 @@ const discoverSerieBanner = async(ids) => {
             site: video[0].site,
             url_video: (video[0].site === "YouTube")
                 ? `https://www.youtube.com/embed/${video[0].key}`
-                : `https://vimeo.com/${video[0].key}`
+                : `https://vimeo.com/${video[0].key}`,
+            title,
+            link_page: homepage
         }
 
     } catch (e){

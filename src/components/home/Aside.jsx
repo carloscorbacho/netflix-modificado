@@ -9,7 +9,7 @@ import {getBanner} from "../../api";
 
 export const Aside = () => {
 
-    const [selectedType, setSelectedType] = useState(null);
+    const [selectedType, setSelectedType] = useState('Películas');
     const dispatch = useDispatch();
 
     const onClickSelectedType = ({target}) => {
@@ -38,13 +38,14 @@ export const Aside = () => {
     return (
         <Grid className="nav">
             <Grid className="nav_container">
+                <Grid className="icon-box active" onClick={ onClickSelectedType }>
+                    <MovieIcon className="icon-box_img"/>
+                    <Box className="icon-box_span" onClick={ onClickSelectedType }>Películas</Box>
+                </Grid>
                 <Grid className="icon-box" onClick={ onClickSelectedType }>
                     <LiveTvIcon className="icon-box_img" />
                     <Box className="icon-box_span">Series</Box>
-                </Grid>
-                <Grid className="icon-box" onClick={ onClickSelectedType }>
-                    <MovieIcon className="icon-box_img"/>
-                    <Box className="icon-box_span" onClick={ onClickSelectedType }>Películas</Box>
+
                 </Grid>
             </Grid>
         </Grid>

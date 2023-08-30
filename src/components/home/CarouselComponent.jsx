@@ -5,9 +5,9 @@ import 'slick-carousel/slick/slick-theme.css';
 import { CarouselCard } from "./CarouselCard";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import {Button, Grid} from "@mui/material";
+import {Button, Grid, Typography} from "@mui/material";
 
-export const CarouselComponent = ({ items = null }) => {
+export const CarouselComponent = ({ titleCarousel = null, items = null }) => {
 
     const [widthCarousel, setWidth] = useState(window.innerWidth);
 
@@ -56,6 +56,7 @@ export const CarouselComponent = ({ items = null }) => {
 
     return (
         <Grid className="carousel-container" style={{ maxWidth: widthCarousel }}>
+            <Typography variant="h5" mb={2}>{titleCarousel}</Typography>
             <Slider {...settings}>
                 {items.map((item) => (
                     <CarouselCard item={item} key={item.id}/>
