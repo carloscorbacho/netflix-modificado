@@ -2,7 +2,7 @@ import React, {useLayoutEffect, useState, useRef, useEffect} from "react";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { CarouselCard } from "./CarouselCard";
+import { CardItem } from "./CardItem";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {Button, Grid, Typography} from "@mui/material";
@@ -56,10 +56,12 @@ export const CarouselComponent = ({ titleCarousel = null, items = null }) => {
 
     return (
         <Grid className="carousel-container" style={{ maxWidth: widthCarousel }}>
-            <Typography variant="h5" mb={2}>{titleCarousel}</Typography>
+            {
+                (titleCarousel) && <Typography variant="h5" mb={2}>{titleCarousel}</Typography>
+            }
             <Slider {...settings}>
                 {items.map((item) => (
-                    <CarouselCard item={item} key={item.id}/>
+                    (!!item) && <CardItem item={item} key={item.id}/>
                 ))}
             </Slider>
         </Grid>

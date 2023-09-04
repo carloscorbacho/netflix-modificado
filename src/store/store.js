@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {authSlice, bannerSlice, moviesSlice, selectedTypeSlice} from "./slice";
+import {authSlice, bannerSlice, moviesSlice, searchSlice, selectedTypeSlice, seriesSlice} from "./slice";
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
+        search: searchSlice.reducer,
         selectedType: selectedTypeSlice.reducer,
         banner: bannerSlice.reducer,
-        movies: moviesSlice.reducer
+        movies: moviesSlice.reducer,
+        series: seriesSlice.reducer
     },
 })

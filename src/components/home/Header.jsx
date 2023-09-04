@@ -4,9 +4,9 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useDispatch } from "react-redux";
-import { onLogout } from "../../store/slice";
+import {itemsSearch, onLogout, onSearch} from "../../store/slice";
 
 export const Header = () => {
 
@@ -14,27 +14,27 @@ export const Header = () => {
     const [ search, setSearch ] = useState();
     const dispatch = useDispatch();
 
-    const onsubmitSearch = (e) => {
-        e.preventDefault();
-
-        console.log(search);
-        //Enviaremos el contenido del buscador
-        //dispatch();
-
-    }
-
-    const onChangeSearch = ({ target }) => {
-
-        //Actualizamos el estado del buscador
-        const { value } = target;
-        setSearch(value);
-
-    }
-
     const onLogoutUser = () => {
         //Disparamos la acción de cerrar sesión
         dispatch( onLogout() );
     }
+
+    const onsubmitSearch = (e) => {
+        e.preventDefault();
+        //Enviaremos el contenido del buscador
+        dispatch(onSearch(search));
+    }
+
+    const onChangeSearch = ({ target }) => {
+        //Actualizamos el estado del buscador
+        const { value } = target;
+        setSearch(value);
+    }
+
+    useEffect(() => {
+        //Disparamos la acción
+        dispatch(onSearch(search));
+    }, [search])
 
     return (
         <Grid className="header">

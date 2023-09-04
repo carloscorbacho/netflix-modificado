@@ -1,0 +1,32 @@
+.view-search{
+  padding: 20px;
+  min-height: calc(100vh - $height-header);
+
+  &_title{
+    text-align: center;
+  }
+
+  &_content{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+
+    .card{
+      width: 100%;
+      max-width: 250px;
+      margin-right: 10px;
+      height: 100%;
+      overflow: hidden;
+      max-height: 140px;
+      margin-bottom: 10px;
+
+      img{
+        width: 100%;
+      }
+    }
+
+  }
+}
+

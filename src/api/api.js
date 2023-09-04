@@ -1,5 +1,5 @@
 import axios from "axios";
-import {onPopularMovies, onSelectedBanner} from '../store/slice';
+import {onSelectedBanner, onPopularMovies, onRatedMovies, onPopularSeries, onTopRatedSeries, onSearch, itemsSearch} from '../store/slice';
 
 const baseURL = 'https://api.themoviedb.org/3';
 const tokenApi = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNGZhNDhkYmQ2NmI2Yjc0OGJkOWMzZDgyYTBmMTNmZSIsInN1YiI6IjY0ZGQwNWVjMDAxYmJkMDQxYmY0N2E1OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SvAt8zdk8dnAtFv-D5EU42qQ8h1-fTD9eSyf5UoQUbQ';
@@ -77,7 +77,7 @@ const discoverSeriesIds = async () => {
             const {id} = result;
             return id;
         });
-        console.log(ids);
+
         return ids;
 
     } catch (e) {
@@ -150,7 +150,6 @@ const discoverSerieBanner = async(ids) => {
         //Hacemos una búsqueda para obtener más info del id del video
         const urlDetails = `/movie/${id_item}`;
         const {data} =  await instanceAPI.get(urlDetails);
-        console.log(data)
         const {title, homepage} = data;
 
         return {
@@ -180,10 +179,14 @@ export const popularMoviesList = () => {
 
             //Hacemos un map para extraer la información que necesitamos
             const dataMovies = data.results.map((movie) => {
-                return {
-                    id: movie.id,
-                    img_poster: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                if(!!movie.backdrop_path) {
+                    return {
+                        id: movie.id,
+                        img_poster: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                    }
                 }
+
+                return;
             });
 
             //Ejecutamos la acción
@@ -193,5 +196,119 @@ export const popularMoviesList = () => {
             console.error(e);
             return;
         }
+    }
+}
+
+//Función para obtener las series mas populares
+export const popularSeriesList = () => {
+    return async (dispatch, getState) => {
+
+        try {
+            //Estraemos los datos
+            const {data} = await instanceAPI.get('/tv/popular');
+
+            //Hacemos un map para extraer la información que necesitamos
+            const dataSeries = data.results.map((serie) => {
+                if(!!serie.backdrop_path){
+                    return {
+                        id: serie.id,
+                        img_poster: `https://image.tmdb.org/t/p/original/${serie.backdrop_path}`
+                    }
+                }
+
+                return;
+
+            });
+
+            //Ejecutamos la acción
+            dispatch(onPopularSeries(dataSeries));
+
+        } catch (e) {
+            console.error(e);
+            return;
+        }
+    }
+}
+
+//Función para obtener las series con mejor puntuación
+export const ratedSeriesList = () => {
+    return async (dispatch, getState) => {
+        try {
+            const {data} = await instanceAPI.get('/tv/top_rated?language=en-US');
+
+            const dataRatedSeries = data.results.map((serie) => {
+                if(!!serie.backdrop_path){
+                    return {
+                        id: serie.id,
+                        img_poster: `https://image.tmdb.org/t/p/original/${serie.backdrop_path}`
+                    }
+                }
+
+                return;
+
+            });
+
+            //Ejecutamos la acción
+            dispatch(onTopRatedSeries(dataRatedSeries));
+
+        } catch (e){
+            console.error(e);
+            return;
+        }
+    }
+}
+
+//Función para obtener las peliculas con mejor puntuación
+export const ratedMoviesList = () => {
+    return async (dispatch, getState) => {
+        try {
+            const {data} = await instanceAPI.get('/movie/top_rated?language=en-US');
+
+            const dataRatedMovies = data.results.map((movie) => {
+                if(!!movie.backdrop_path){
+                    return {
+                        id: movie.id,
+                        img_poster: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                    }
+                }
+
+                return;
+
+            });
+
+            //Ejecutamos la acción
+            dispatch(onRatedMovies(dataRatedMovies));
+
+        } catch (e){
+            console.error(e);
+            return;
+        }
+    }
+}
+
+export const searchItems = (searchItem) => {
+    return async(dispatch, getState) => {
+        try {
+            const {data} = await instanceAPI.get(`/search/collection?query=${searchItem}&include_adult=false&language=en-US`);
+
+            const dataSearch = data.results.map((item) => {
+                if(!!item.backdrop_path){
+                    return {
+                        id: item.id,
+                        img_poster: `https://image.tmdb.org/t/p/original/${item.backdrop_path}`
+                    }
+                }
+
+                return;
+
+            });
+
+            dispatch(itemsSearch(dataSearch));
+
+        } catch (e){
+            console.error(e);
+            return;
+        }
+
     }
 }

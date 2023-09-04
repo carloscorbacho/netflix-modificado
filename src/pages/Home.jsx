@@ -7,26 +7,26 @@ import {Banner} from "../components/home/Banner";
 import {CarouselComponent} from "../components/home/CarouselComponent";
 import {SeriesPage} from "./SeriesPage";
 import {MoviesPage} from "./MoviesPage";
+import {SearchPage} from "./SearchPage";
 
 export const Home = () => {
 
     const { selectedType } = useSelector(state => state.selectedType);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        //Llamamos a la función para obtener el banner
-        dispatch(getBanner(selectedType));
-    }, [selectedType]);
+    const { search } = useSelector(state => state.search);
 
     return (
         <Grid className="home">
-            <Header/>
-            <Aside/>
+            <Header />
+            {
+                (!search) && <Aside/>
+            }
+
             <Grid className="content">
                 {
-                    ( selectedType === 'Series')
-                        ? <SeriesPage />
-                        : <MoviesPage />
+                    (!!search) ? <SearchPage search={search} />
+                        : ( selectedType === 'Series')
+                            ? <SeriesPage />
+                            : <MoviesPage />
                 }
             </Grid>
         </Grid>
