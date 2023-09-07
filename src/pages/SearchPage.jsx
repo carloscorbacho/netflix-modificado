@@ -4,14 +4,15 @@ import {searchItems} from "../api";
 import {Grid, Typography} from "@mui/material";
 import {CardItem} from "../components/home/CardItem";
 
-export const SearchPage = ({search}) => {
+export const SearchPage = ({search, type}) => {
 
     const { items } = useSelector(state => state.search);
+    const { selectedType } = useSelector(state => state.selectedType);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(searchItems(search));
-    }, [search])
+        dispatch(searchItems(search, selectedType));
+    }, [search, type])
 
     return (
         <Grid className="view-search">

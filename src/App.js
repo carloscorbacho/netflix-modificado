@@ -1,4 +1,4 @@
-import { Home, Prehome } from './pages';
+import { Home, Prehome, ItemPage } from './pages';
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -14,6 +14,10 @@ export const App = () => {
                         ? <Route path='/' element={ <Prehome /> }/>
                         : <Route path='/' element={ <Home/> }/>
                 }
+
+
+                <Route path='movie/:id' element={ <ItemPage />} />
+                <Route path='serie/:id' element={ <ItemPage />} />
 
                 <Route path='/*' element={ <Navigate to='/' /> } />
             </Routes>

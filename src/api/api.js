@@ -16,19 +16,11 @@ const instanceAPI = axios.create({
 });
 
 //Función para obtener el banner con el video
-export const getBanner = (type = null) => {
+export const getBanner = (type) => {
     return async (dispatch, getState) => {
 
         //Declaramos la url de la petición
         let url;
-
-        //Si no contiene ningun tipo lo hacemos al azar (para la primera vez)
-        if (!type) {
-            const typeBanner = ['Series', 'Películas'];
-            const typeRandom = typeBanner[Math.floor(Math.random() * typeBanner.length)];
-
-            type = typeRandom;
-        }
 
         //Hacemos un switch, para hacer una acción o otra en función del tipo
         switch (type) {
@@ -180,9 +172,16 @@ export const popularMoviesList = () => {
             //Hacemos un map para extraer la información que necesitamos
             const dataMovies = data.results.map((movie) => {
                 if(!!movie.backdrop_path) {
+                    const {id, title, backdrop_path, vote_count, vote_average, release_date} = movie;
+
                     return {
-                        id: movie.id,
-                        img_poster: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                        id,
+                        type: 'movie',
+                        img_poster: `https://image.tmdb.org/t/p/original/${backdrop_path}`,
+                        title,
+                        vote_count,
+                        vote_average,
+                        date: release_date
                     }
                 }
 
@@ -199,6 +198,41 @@ export const popularMoviesList = () => {
     }
 }
 
+//Función para obtener las peliculas con mejor puntuación
+export const ratedMoviesList = () => {
+    return async (dispatch, getState) => {
+        try {
+            const {data} = await instanceAPI.get('/movie/top_rated?language=en-US');
+
+            const dataRatedMovies = data.results.map((movie) => {
+                if(!!movie.backdrop_path){
+                    const {id, title, backdrop_path, vote_count, vote_average, release_date} = movie;
+
+                    return {
+                        id,
+                        type: 'movie',
+                        img_poster: `https://image.tmdb.org/t/p/original/${backdrop_path}`,
+                        title,
+                        vote_count,
+                        vote_average,
+                        date: release_date
+                    }
+                }
+
+                return;
+
+            });
+
+            //Ejecutamos la acción
+            dispatch(onRatedMovies(dataRatedMovies));
+
+        } catch (e){
+            console.error(e);
+            return;
+        }
+    }
+}
+
 //Función para obtener las series mas populares
 export const popularSeriesList = () => {
     return async (dispatch, getState) => {
@@ -209,16 +243,24 @@ export const popularSeriesList = () => {
 
             //Hacemos un map para extraer la información que necesitamos
             const dataSeries = data.results.map((serie) => {
+                const {id, name, backdrop_path, vote_count, vote_average, first_air_date} = serie;
+
                 if(!!serie.backdrop_path){
                     return {
-                        id: serie.id,
-                        img_poster: `https://image.tmdb.org/t/p/original/${serie.backdrop_path}`
+                        id,
+                        type: 'serie',
+                        img_poster: `https://image.tmdb.org/t/p/original/${backdrop_path}`,
+                        title: name,
+                        vote_count,
+                        vote_average,
+                        date: first_air_date
                     }
                 }
 
                 return;
 
             });
+
 
             //Ejecutamos la acción
             dispatch(onPopularSeries(dataSeries));
@@ -237,10 +279,17 @@ export const ratedSeriesList = () => {
             const {data} = await instanceAPI.get('/tv/top_rated?language=en-US');
 
             const dataRatedSeries = data.results.map((serie) => {
+                const {id, name, backdrop_path, vote_count, vote_average, first_air_date} = serie;
+
                 if(!!serie.backdrop_path){
                     return {
-                        id: serie.id,
-                        img_poster: `https://image.tmdb.org/t/p/original/${serie.backdrop_path}`
+                        id,
+                        type: 'serie',
+                        img_poster: `https://image.tmdb.org/t/p/original/${backdrop_path}`,
+                        title: name,
+                        vote_count,
+                        vote_average,
+                        date: first_air_date
                     }
                 }
 
@@ -258,49 +307,35 @@ export const ratedSeriesList = () => {
     }
 }
 
-//Función para obtener las peliculas con mejor puntuación
-export const ratedMoviesList = () => {
-    return async (dispatch, getState) => {
-        try {
-            const {data} = await instanceAPI.get('/movie/top_rated?language=en-US');
-
-            const dataRatedMovies = data.results.map((movie) => {
-                if(!!movie.backdrop_path){
-                    return {
-                        id: movie.id,
-                        img_poster: `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
-                    }
-                }
-
-                return;
-
-            });
-
-            //Ejecutamos la acción
-            dispatch(onRatedMovies(dataRatedMovies));
-
-        } catch (e){
-            console.error(e);
-            return;
-        }
-    }
-}
-
-export const searchItems = (searchItem) => {
+//Función para hacer búsqueda del título
+export const searchItems = (searchItem, type) => {
     return async(dispatch, getState) => {
         try {
-            const {data} = await instanceAPI.get(`/search/collection?query=${searchItem}&include_adult=false&language=en-US`);
+
+            const typeSearch = (type === 'Series') ? 'tv' : 'movie';
+            const typeItem = (type === 'Series') ? 'serie' : 'movie';
+
+            const {data} = await instanceAPI.get(`/search/${typeSearch}?query=${searchItem}&include_adult=false'`);
 
             const dataSearch = data.results.map((item) => {
+
                 if(!!item.backdrop_path){
+                    const {id, name, backdrop_path, vote_count, vote_average, first_air_date} = item;
+
+                    const nameItem = (!!name) ? name : item.title;
+
                     return {
-                        id: item.id,
-                        img_poster: `https://image.tmdb.org/t/p/original/${item.backdrop_path}`
+                        id,
+                        type: typeItem,
+                        img_poster: `https://image.tmdb.org/t/p/original/${item.backdrop_path}`,
+                        title: nameItem,
+                        vote_count,
+                        vote_average,
+                        date: first_air_date
                     }
                 }
 
                 return;
-
             });
 
             dispatch(itemsSearch(dataSearch));

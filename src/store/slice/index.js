@@ -5,3 +5,4 @@ export * from './bannerSlice';
 export * from './moviesSlice';
 export * from './seriesSlice';
 export * from './searchSlice';
+export * from './itemSelectedSlice';

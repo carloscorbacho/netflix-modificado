@@ -17,13 +17,11 @@ export const Home = () => {
     return (
         <Grid className="home">
             <Header />
-            {
-                (!search) && <Aside/>
-            }
+            <Aside/>
 
             <Grid className="content">
                 {
-                    (!!search) ? <SearchPage search={search} />
+                    (!!search) ? <SearchPage search={search} type={selectedType}/>
                         : ( selectedType === 'Series')
                             ? <SeriesPage />
                             : <MoviesPage />
