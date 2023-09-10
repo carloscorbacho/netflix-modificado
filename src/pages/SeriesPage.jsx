@@ -4,9 +4,13 @@ import {useEffect} from "react";
 import {popularSeriesList, ratedSeriesList} from "../api";
 import {CarouselComponent} from "../components/home/CarouselComponent";
 import {Grid} from "@mui/material";
+import {Aside, Header} from "../components";
+import {SearchPageComponent} from "../components/home/SearchPageComponent";
+import {MoviesPage} from "./MoviesPage";
 
 export const SeriesPage = () => {
 
+    const { search } = useSelector(state => state.search);
     const { banner } = useSelector(state => state.banner);
     const { popularSeries, topRatedSeries } = useSelector(state => state.series);
     const dispatch = useDispatch();
@@ -18,23 +22,34 @@ export const SeriesPage = () => {
         dispatch(ratedSeriesList());
     }, []);
     return (
-        <>
-            {
-                ( banner ) && <Banner />
-            }
+        <Grid className="home">
+            <Header />
+            <Aside active="series" />
 
-            <Grid className='container-carousel'>
-                {
-                    ( popularSeries ) && <CarouselComponent
-                        titleCarousel='Series más populares'
-                        items={popularSeries} />
-                }
-                {
-                    ( topRatedSeries ) && <CarouselComponent
-                        titleCarousel='Series más votadas'
-                        items={topRatedSeries} />
-                }
-            </Grid>
-        </>
+            {
+                (!!search)
+                    ? <SearchPageComponent />
+                    : (
+                        <Grid className="content">
+                        {
+                            ( banner ) && <Banner />
+                        }
+
+                        <Grid className='container-carousel'>
+                            {
+                                ( popularSeries ) && <CarouselComponent
+                                    titleCarousel='Series más populares'
+                                    items={popularSeries} />
+                            }
+                            {
+                                ( topRatedSeries ) && <CarouselComponent
+                                    titleCarousel='Series más votadas'
+                                    items={topRatedSeries} />
+                            }
+                        </Grid>
+                    </Grid>
+                    )
+            }
+        </Grid>
     )
 }

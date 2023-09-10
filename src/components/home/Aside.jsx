@@ -1,51 +1,37 @@
 import {Box, Grid} from "@mui/material";
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import MovieIcon from '@mui/icons-material/Movie';
+import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import { onSelectedType } from "../../store/slice";
 import {getBanner} from "../../api";
 
 
-export const Aside = () => {
+export const Aside = ({active}) => {
 
-    const [selectedType, setSelectedType] = useState('Películas');
     const dispatch = useDispatch();
-
-    const onClickSelectedType = ({target}) => {
-        //Obtenemos el padre .icon-box_span mas cercano
-        const elementParent = target.closest('.icon-box');
-        const typeSelected = elementParent.querySelector('.icon-box_span').innerHTML;
-
-        //Actualizamos el typo ya sea pelicula o serie en nuestro estado
-        setSelectedType(typeSelected);
-
-        const iconBoxes = document.querySelectorAll('.icon-box');
-        iconBoxes.forEach(
-            iconBox => {
-                iconBox.classList.remove('active');
-                if(iconBox === elementParent) iconBox.classList.add('active');
-            }
-        );
-    }
+    const typeActive = document.querySelector(`.${active}`);
 
     useEffect(() => {
-        //Cada vez que cambie el tipo cambie el store
-        dispatch(onSelectedType(selectedType));
-        dispatch(getBanner(selectedType));
-    }, [selectedType])
+        dispatch(onSelectedType(active));
+        dispatch(getBanner(active));
+    }, [])
 
     return (
         <Grid className="nav">
             <Grid className="nav_container">
-                <Grid className="icon-box active" onClick={ onClickSelectedType }>
-                    <MovieIcon className="icon-box_img"/>
-                    <Box className="icon-box_span" onClick={ onClickSelectedType }>Películas</Box>
+                <Grid className={`icon-box ${active === 'movies' && 'active'}`}>
+                    <Link to="/movies">
+                        <MovieIcon className="icon-box_img" />
+                        <Box className="icon-box_span">Películas</Box>
+                    </Link>
                 </Grid>
-                <Grid className="icon-box" onClick={ onClickSelectedType }>
-                    <LiveTvIcon className="icon-box_img" />
-                    <Box className="icon-box_span">Series</Box>
-
+                <Grid className={`icon-box ${active === 'series' && 'active'}`}>
+                    <Link to="/series">
+                        <LiveTvIcon className="icon-box_img" />
+                        <Box className="icon-box_span">Series</Box>
+                    </Link>
                 </Grid>
             </Grid>
         </Grid>

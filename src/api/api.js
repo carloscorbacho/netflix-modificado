@@ -1,5 +1,5 @@
 import axios from "axios";
-import {onSelectedBanner, onPopularMovies, onRatedMovies, onPopularSeries, onTopRatedSeries, onSearch, itemsSearch} from '../store/slice';
+import {onSelectedBanner, onPopularMovies, onRatedMovies, onPopularSeries, onTopRatedSeries, itemsSearch, onItemSelected} from '../store/slice';
 
 const baseURL = 'https://api.themoviedb.org/3';
 const tokenApi = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNGZhNDhkYmQ2NmI2Yjc0OGJkOWMzZDgyYTBmMTNmZSIsInN1YiI6IjY0ZGQwNWVjMDAxYmJkMDQxYmY0N2E1OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SvAt8zdk8dnAtFv-D5EU42qQ8h1-fTD9eSyf5UoQUbQ';
@@ -18,18 +18,14 @@ const instanceAPI = axios.create({
 //Función para obtener el banner con el video
 export const getBanner = (type) => {
     return async (dispatch, getState) => {
-
-        //Declaramos la url de la petición
-        let url;
-
         //Hacemos un switch, para hacer una acción o otra en función del tipo
         switch (type) {
-            case 'Series':
+            case 'series':
                 const idsSeries = await discoverSeriesIds();
                 const serie = await discoverSerieBanner(idsSeries);
                 dispatch(onSelectedBanner(serie));
                 break;
-            case 'Películas':
+            case 'movies':
                 const idsMovies = await discoverMoviesIds();
                 const movie = await discoverMovieBanner(idsMovies);
                 dispatch(onSelectedBanner(movie));
@@ -345,5 +341,34 @@ export const searchItems = (searchItem, type) => {
             return;
         }
 
+    }
+}
+
+//Función obtener el item dependiendo del id y el tipo
+export const ItemById = (id, type) => {
+    return async(dispatch, getState) => {
+        try {
+
+            const { data } = await instanceAPI.get(`/${type}/${id}`);
+
+            const {vote_count, vote_average, overview} = data;
+
+            const titleItem = (!!data.title) ? data.title : data.name;
+
+            const result = {
+                titleItem,
+                background: `https://image.tmdb.org/t/p/original/${data.backdrop_path}`,
+                poster: `https://image.tmdb.org/t/p/original/${data.poster_path}`,
+                vote_count,
+                vote_average,
+                overview
+            }
+
+            dispatch(onItemSelected(result));
+
+        } catch (e){
+            console.error(e);
+            return;
+        }
     }
 }

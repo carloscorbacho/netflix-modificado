@@ -5,17 +5,20 @@ import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import {useEffect, useState} from "react";
-import { useDispatch } from "react-redux";
-import {itemsSearch, onLogout, onSearch} from "../../store/slice";
+import {useDispatch, useSelector} from "react-redux";
+import {onLogout, onSearch} from "../../store/slice";
+import {Link, useNavigate} from "react-router-dom";
 
-export const Header = () => {
+export const Header = ({disabledSearch}) => {
 
     //Creamos el estado del buscador
-    const [ search, setSearch ] = useState();
+    const { search:SearchRedux } = useSelector(state => state.search)
+    const [ search, setSearch ] = useState(SearchRedux);
     const dispatch = useDispatch();
 
     const onLogoutUser = () => {
         //Disparamos la acción de cerrar sesión
+        sessionStorage.removeItem('user');
         dispatch( onLogout() );
     }
 
@@ -28,6 +31,7 @@ export const Header = () => {
     const onChangeSearch = ({ target }) => {
         //Actualizamos el estado del buscador
         const { value } = target;
+
         setSearch(value);
     }
 
@@ -40,9 +44,11 @@ export const Header = () => {
         <Grid className="header">
             <Grid className="header_container">
                 <Grid>
-                    <img src={ logo } alt="logo" className="icon-platform" />
+                    <Link to="/">
+                        <img src={ logo } alt="logo" className="icon-platform" />
+                    </Link>
                 </Grid>
-                <Grid>
+                <Grid sx={(disabledSearch) && {display: 'none' }}>
                     <form onSubmit={ onsubmitSearch }>
                         <Box className="input-box">
                             <TextField
@@ -52,6 +58,7 @@ export const Header = () => {
                                 className="input-box_title"
                                 focused
                                 onChange={ onChangeSearch }
+                                value={ SearchRedux }
                             />
                             <IconButton className="input-box_search" onClick={ onsubmitSearch }>
                                 <SearchIcon />

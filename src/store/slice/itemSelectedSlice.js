@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const itemSelectedSlice = createSlice({
     name: 'itemSelected',
     initialState: {
-        item: null
+        itemSelected: null
     },
     reducers : {
         onItemSelected : ( state, { payload }) => {

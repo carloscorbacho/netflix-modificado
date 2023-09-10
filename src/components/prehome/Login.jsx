@@ -57,7 +57,10 @@ export const Login = () => {
 
             setTimeout(() => {
                 // Enviamos la petición mediante un dispatch para hacer login
-                dispatch(onLogin(formUser));
+                //Expresion regular que quita de toda la cadena las comillas ' "
+                sessionStorage.setItem('user', JSON.stringify(email).replace(/['"]+/g, ''));
+                const session = sessionStorage.getItem('user');
+                dispatch(onLogin({ email: session }));
             }, 2000)
         }
 

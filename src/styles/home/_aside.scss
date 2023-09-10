@@ -15,11 +15,6 @@
     margin: auto;
 
     .icon-box{
-      color: white;
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-
       &.active{
         *{
           color: #e50914;
@@ -30,16 +25,25 @@
         margin-right: 20px;
       }
 
-      .icon-box_img{
-        margin-bottom: 2px;
-        font-size: 25px;
+      a{
+        color: white;
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        .icon-box_img{
+          margin-bottom: 2px;
+          font-size: 25px;
+        }
+
+        .icon-box_span{
+          font-size: 12px;
+          letter-spacing: 2px;
+          font-weight: 400;
+        }
       }
 
-      .icon-box_span{
-        font-size: 12px;
-        letter-spacing: 2px;
-        font-weight: 400;
-      }
     }
   }
 }

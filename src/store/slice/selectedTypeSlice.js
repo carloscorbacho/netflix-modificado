@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const selectedTypeSlice = createSlice({
     name: 'selectedType',
     initialState: {
-        selectedType: 'Películas'
+        selectedType: 'movies'
     },
     reducers : {
         onSelectedType : ( state, { payload }) => {
