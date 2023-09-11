@@ -1,8 +1,8 @@
-import {Home, Prehome, ItemPage, MoviesPage, SeriesPage, SearchPageComponent} from './pages';
+import {Prehome, ItemPage, MoviesPage, SeriesPage, ItemsSearch} from './pages';
 import { Navigate, Route, Routes } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-import {onLogout, onLogin, onSelectedType} from "./store/slice";
+import {useEffect} from "react";
+import {onLogout, onLogin} from "./store/slice";
 
 export const App = () => {
 

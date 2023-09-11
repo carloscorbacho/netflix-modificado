@@ -1,11 +1,13 @@
-import {Grid, Typography, Link} from "@mui/material";
-import Button from '@mui/material/Button';
+//React
 import {useSelector} from "react-redux";
 import ReactPlayer from "react-player";
+
+//MaterialUI
+import {Grid, Typography, Link} from "@mui/material";
+import Button from '@mui/material/Button';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 export const Banner = ({type}) => {
-
     const { banner } = useSelector( state => state.banner);
 
     return (

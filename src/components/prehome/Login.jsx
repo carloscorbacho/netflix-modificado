@@ -1,9 +1,18 @@
-import {Box, Button, TextField } from '@mui/material';
+//React
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {onLogin} from "../../store/slice";
+
+//MaterialUI
+import {Box, Button, TextField } from '@mui/material';
+
+//Libreria para modals
 import Swal from "sweetalert2";
+
+//Libreria para validar ya sea mails, contraseñas...
 import validator from 'validator';
+
+//Custom Function
+import {onLogin} from "../../store/slice";
 
 // Inicializamos los objetos
 const formData = {
@@ -45,10 +54,7 @@ export const Login = () => {
         const correctForm = emailError === '' && passwordError === '' && !!email && !!password;
 
         if (correctForm) {
-            /*
-                Utilizamos la libreria swal para que aparezca un modal y confirmar al usuario que ha accedido
-                correctamente
-             */
+            //Confirmamos que las creedenciales son correctas
             Swal.fire(
                 'Credenciales correctas.',
                 '',
@@ -92,7 +98,6 @@ export const Login = () => {
             emailError,
             passwordError
         })
-
     }
 
     return (

@@ -1,43 +1,57 @@
+//React
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+
+//MaterialUI
 import {Box, Grid, TextField} from "@mui/material";
-import logo from "../../images/icon-plataforma.png";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+
+//Logo
+import logo from "../../images/icon-plataforma.png";
+
+//Custom Functions
 import {onLogout, onSearch} from "../../store/slice";
-import {Link, useNavigate} from "react-router-dom";
+import {searchItems} from "../../api/getSearchItems";
 
 export const Header = ({disabledSearch}) => {
-
     //Creamos el estado del buscador
     const { search:SearchRedux } = useSelector(state => state.search)
     const [ search, setSearch ] = useState(SearchRedux);
+    const {selectedType} = useSelector(state => state.selectedType);
     const dispatch = useDispatch();
 
+    //Función para cerrar sesión
     const onLogoutUser = () => {
-        //Disparamos la acción de cerrar sesión
+        //Eliminamos la sesión
         sessionStorage.removeItem('user');
+        //Disparamos la acción de cerrar sesión
         dispatch( onLogout() );
     }
 
+    //Función para cuando hagan click en buscar
     const onsubmitSearch = (e) => {
         e.preventDefault();
         //Enviaremos el contenido del buscador
         dispatch(onSearch(search));
     }
 
+    //Función para cambiar el contenido del input
     const onChangeSearch = ({ target }) => {
-        //Actualizamos el estado del buscador
         const { value } = target;
-
+        //Actualizamos el estado del buscador
         setSearch(value);
     }
 
+    //Cada vez que cambie el contenido, disparar la acción
     useEffect(() => {
         //Disparamos la acción
         dispatch(onSearch(search));
+        //Disparamos la acción para buscar los items
+        dispatch(searchItems(search, selectedType));
     }, [search])
 
     return (

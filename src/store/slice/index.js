@@ -1,8 +1,9 @@
 
 export * from './authSlice';
-export * from './selectedTypeSlice';
 export * from './bannerSlice';
-export * from './moviesSlice';
-export * from './seriesSlice';
-export * from './searchSlice';
 export * from './itemSelectedSlice';
+export * from './moviesSlice';
+export * from './searchSlice';
+export * from './selectedTypeSlice';
+export * from './seriesSlice';
+

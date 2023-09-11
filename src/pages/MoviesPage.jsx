@@ -1,13 +1,17 @@
-import { Banner } from "../components/home/Banner";
-import { useDispatch, useSelector } from "react-redux";
-import { Grid } from "@mui/material";
+//React
 import { useEffect } from "react";
-import { popularMoviesList, ratedMoviesList } from "../api";
-import { CarouselComponent } from "../components/home/CarouselComponent";
-import {Aside, Header, SearchPageComponent} from "../components";
+import { useDispatch, useSelector } from "react-redux";
+
+//MaterialUI
+import { Grid } from "@mui/material";
+
+//Custom components
+import { Banner, Aside, Header, ItemsSearch, CarouselComponent} from "../components/home";
+
+//Custom functions
+import { popularMoviesList, ratedMoviesList } from "../api/getComponentsMovies";
 
 export const MoviesPage = () => {
-
     const { search } = useSelector(state => state.search);
     const { banner } = useSelector(state => state.banner);
     const { popularMovies, topRatedMovies } = useSelector(state => state.movies);
@@ -27,7 +31,7 @@ export const MoviesPage = () => {
 
             {
                 (!!search)
-                    ? <SearchPageComponent />
+                    ? <ItemsSearch />
                     : (
                         <Grid className="content">
                             {

@@ -1,11 +1,19 @@
-import React, {useLayoutEffect, useState, useRef, useEffect} from "react";
+//React
+import React, {useLayoutEffect, useState} from "react";
+
+//MaterialUI
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import {Grid, Typography} from "@mui/material";
+
+//React slick (libreria carousel)
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { CardItem } from "./CardItem";
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import {Button, Grid, Typography} from "@mui/material";
+
+//Component
+import { CardItem } from "./";
+
 
 export const CarouselComponent = ({ titleCarousel = null, items = null }) => {
 

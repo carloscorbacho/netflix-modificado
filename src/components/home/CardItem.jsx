@@ -1,12 +1,16 @@
-import {Card, Grid, Box, Typography} from '@mui/material';
+//React
+import React from "react";
 import {Link} from 'react-router-dom';
+
+//MaterialUI
+import {Card, Grid, Box, Typography} from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+
+//Moment (libreria manipulación fechas y horas)
 import moment from "moment";
-import React from "react";
 
 export const CardItem = ({item}) => {
-
     const {id, type, img_poster, title, date, vote_average, vote_count } = item;
     const dateItem = moment(date).format('DD/MM/YYYY');
     const link = `/${type}/${id}`;

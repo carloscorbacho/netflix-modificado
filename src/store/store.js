@@ -1,5 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {authSlice, bannerSlice, moviesSlice, searchSlice, selectedTypeSlice, seriesSlice, itemSelectedSlice} from "./slice";
+import {authSlice,
+    bannerSlice,
+    moviesSlice,
+    searchSlice,
+    selectedTypeSlice,
+    seriesSlice,
+    itemSelectedSlice
+} from "./slice";
 
 export const store = configureStore({
     reducer: {

@@ -1,18 +1,15 @@
+//React
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {searchItems} from "../../api";
+
+//MaterialUI
 import {Grid, Typography} from "@mui/material";
+
+//Components
 import {CardItem} from "./CardItem";
 
-export const SearchPageComponent = () => {
-
+export const ItemsSearch = () => {
     const {search, items} = useSelector(state => state.search);
-    const {selectedType} = useSelector(state => state.selectedType);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(searchItems(search, selectedType));
-    }, [search])
 
     return (
         <Grid className="content">

@@ -1,15 +1,18 @@
+//React
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
+
+//MaterialUI
 import {Box, Grid} from "@mui/material";
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import MovieIcon from '@mui/icons-material/Movie';
-import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
-import { onSelectedType } from "../../store/slice";
-import {getBanner} from "../../api";
 
+//Custom functions
+import { onSelectedType } from "../../store/slice";
+import {getBanner} from "../../api/getBannerVideo";
 
 export const Aside = ({active}) => {
-
     const dispatch = useDispatch();
     const typeActive = document.querySelector(`.${active}`);
 

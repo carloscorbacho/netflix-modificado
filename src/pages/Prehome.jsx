@@ -1,5 +1,10 @@
-import  { Login }  from '../components';
+//MaterialUI
 import { Grid } from "@mui/material";
+
+//Custom components
+import  { Login }  from '../components/prehome';
+
+//Img
 import logo from '../images/icon-plataforma.png';
 
 export const Prehome = () => {
