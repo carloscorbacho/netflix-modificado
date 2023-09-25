@@ -5,3 +5,4 @@ export * from './CardItem';
 export * from './CarouselComponent';
 export * from './Header';
 export * from './ItemsSearch';
+export * from './LoadingComponent';

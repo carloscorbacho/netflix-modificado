@@ -1,5 +1,9 @@
 &.item{
+  min-height: 100vh;
+  background-color: #252525;
+
   .content{
+
     &_detail{
       background-size: cover !important;
       background-position: center !important;
@@ -8,10 +12,14 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
+      opacity: 1;
+      animation: opacity 1s forwards;
 
       .image-poster{
         width: 100%;
         max-width: 300px;
+        opacity: 0;
+        animation: opacity 1s forwards 1s;
 
         img{
           width: 100%;
@@ -26,6 +34,26 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
+        position: relative;
+        top: 40px;
+        opacity: 0;
+        animation: animationText 1s forwards 1s;
+
+        @keyframes animationText {
+          0%{
+            top: 40px;
+            opacity: 0;
+          }
+
+          80%{
+            opacity: 1;
+          }
+
+          100%{
+            top: 0;
+            opacity: 1;
+          }
+        }
 
         .titleItem{
           font-size: 35px;
@@ -65,6 +93,15 @@
           font-size: 14px;
           font-weight: 400;
           margin-top: 15px;
+        }
+      }
+
+      @keyframes opacity {
+        0%{
+          opacity: 0;
+        }
+        100%{
+          opacity: 1;
         }
       }
     }

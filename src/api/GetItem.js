@@ -11,6 +11,7 @@ export const ItemById = (id, type) => {
 
             //Creamos el objeto con la info que necesitamos
             const result = {
+                id,
                 titleItem,
                 background: `https://image.tmdb.org/t/p/original/${data.backdrop_path}`,
                 poster: `https://image.tmdb.org/t/p/original/${data.poster_path}`,

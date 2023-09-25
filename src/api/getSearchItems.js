@@ -1,5 +1,5 @@
 import {instanceAPI} from "./api";
-import {itemsSearch} from "../store/slice";
+import {itemsSearch, onLoadedItems, onResetItems} from "../store/slice";
 
 //Función para hacer búsqueda del título
 export const searchItems = (searchItem, type) => {

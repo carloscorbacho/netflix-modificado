@@ -55,11 +55,14 @@ export const Login = () => {
 
         if (correctForm) {
             //Confirmamos que las creedenciales son correctas
-            Swal.fire(
-                'Credenciales correctas.',
-                '',
-                'success'
-            )
+            Swal.fire({
+                title: 'Acceso correcto',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                width: 400,
+                padding: `0 0 30px 0`,
+            })
 
             setTimeout(() => {
                 // Enviamos la petición mediante un dispatch para hacer login

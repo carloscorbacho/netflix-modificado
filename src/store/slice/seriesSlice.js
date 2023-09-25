@@ -3,10 +3,14 @@ import {createSlice} from "@reduxjs/toolkit";
 export const seriesSlice = createSlice({
     name: 'series',
     initialState: {
+        loadedSeries: false,
         popularSeries: null,
         topRatedSeries: null
     },
     reducers: {
+        onLoadedSeries: ( state) => {
+            state.loadedSeries = true
+        },
         onPopularSeries: (state, {payload}) => {
             state.popularSeries = payload
         },
@@ -16,4 +20,4 @@ export const seriesSlice = createSlice({
     }
 });
 
-export const { onPopularSeries, onTopRatedSeries } = seriesSlice.actions;
+export const { onLoadedSeries, onPopularSeries, onTopRatedSeries } = seriesSlice.actions;

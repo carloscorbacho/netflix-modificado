@@ -21,7 +21,6 @@ export const Header = ({disabledSearch}) => {
     //Creamos el estado del buscador
     const { search:SearchRedux } = useSelector(state => state.search)
     const [ search, setSearch ] = useState(SearchRedux);
-    const {selectedType} = useSelector(state => state.selectedType);
     const dispatch = useDispatch();
 
     //Función para cerrar sesión
@@ -50,8 +49,6 @@ export const Header = ({disabledSearch}) => {
     useEffect(() => {
         //Disparamos la acción
         dispatch(onSearch(search));
-        //Disparamos la acción para buscar los items
-        dispatch(searchItems(search, selectedType));
     }, [search])
 
     return (
