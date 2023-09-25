@@ -1,0 +1,48 @@
+.loading-content{
+  min-height: calc(100vh - ($height-header + $height-filterHeader));
+  background-color: #252525;
+
+  .content-card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: left;
+    padding: 35px;
+
+    .card {
+      background-color: #353535b3;
+      width: 100%;
+      max-width: 250px;
+      height: 140px;
+      margin-right: 10px;
+      overflow: hidden;
+      max-height: 140px;
+      margin-bottom: 10px;
+      opacity: 0;
+      animation: fadeIn .5s ease-in-out forwards;
+    }
+
+    .card:nth-child(1){
+      animation-delay: 0.5s;
+    }
+
+    .card:nth-child(2){
+      animation-delay: 1s;
+    }
+
+    .card:nth-child(3){
+      animation-delay: 1.5s;
+    }
+
+    .card:nth-child(4){
+      animation-delay: 2s;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
