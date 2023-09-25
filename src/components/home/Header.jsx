@@ -54,17 +54,17 @@ export const Header = ({disabledSearch}) => {
     return (
         <Grid className="header">
             <Grid className="header_container">
-                <Grid>
+                <Grid className="container-logo">
                     <Link to="/">
                         <img src={ logo } alt="logo" className="icon-platform" />
                     </Link>
                 </Grid>
-                <Grid sx={(disabledSearch) && {display: 'none' }}>
+                <Grid className="container-search" sx={(disabledSearch) && {display: 'none' }}>
                     <form onSubmit={ onsubmitSearch }>
                         <Box className="input-box">
                             <TextField
                                 id="standard-required"
-                                label="Título de la serie o película"
+                                label="Buscar"
                                 variant="filled"
                                 className="input-box_title"
                                 focused
@@ -77,7 +77,7 @@ export const Header = ({disabledSearch}) => {
                         </Box>
                     </form>
                 </Grid>
-                <Grid>
+                <Grid className="container-logout">
                     <Tooltip>
                         <IconButton className="btn-logout" onClick={ onLogoutUser }>
                             <LogoutIcon className="btn-logout-icon"/>
