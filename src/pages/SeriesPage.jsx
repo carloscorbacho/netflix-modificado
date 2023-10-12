@@ -11,15 +11,16 @@ import {onLoadedSeries} from "../store/slice";
 
 //Custom components
 import {Aside, Banner, CarouselComponent, Header, ItemsSearch, LoadingComponent} from "../components/home";
+import {getBanner} from "../api/getBannerVideo";
 
 export const SeriesPage = () => {
     const {search} = useSelector(state => state.search);
-    const {banner} = useSelector(state => state.banner);
-    const {loadedSeries, popularSeries, topRatedSeries} = useSelector(state => state.series);
+    const {loadedSeries, bannerSeries, popularSeries, topRatedSeries} = useSelector(state => state.series);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (!loadedSeries) {
+            dispatch(getBanner('series'));
             //Llamamos a la función para obtener las series mas populares
             dispatch(popularSeriesList());
             //Llamamos a la función para obtener las series mas votadas
@@ -37,7 +38,7 @@ export const SeriesPage = () => {
     return (
         <Grid className="home">
             <Header/>
-            <Aside active="series"/>
+            <Aside active="series" />
 
             {
                 (!loadedSeries)
@@ -47,7 +48,7 @@ export const SeriesPage = () => {
                         : (
                             <Grid className="content">
                                 {
-                                    (banner) && <Banner/>
+                                    (bannerSeries) && <Banner item={bannerSeries}/>
                                 }
 
                                 <Grid className='container-carousel'>

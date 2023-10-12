@@ -11,15 +11,16 @@ import {Aside, Banner, CarouselComponent, Header, ItemsSearch, LoadingComponent}
 //Custom functions
 import {popularMoviesList, ratedMoviesList} from "../api/getComponentsMovies";
 import {onLoadedMovies} from "../store/slice";
+import {getBanner} from "../api/getBannerVideo";
 
 export const MoviesPage = () => {
     const {search} = useSelector(state => state.search);
-    const {banner} = useSelector(state => state.banner);
-    const {loadedMovies, popularMovies, topRatedMovies} = useSelector(state => state.movies);
+    const {loadedMovies, bannerMovies, popularMovies, topRatedMovies} = useSelector(state => state.movies);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (!loadedMovies) {
+            dispatch(getBanner('movies'));
             //Llamamos a la función para obtener las peliculas mas populares
             dispatch(popularMoviesList());
             //Llamamos a la función para obtener las peliculas mas votadas
@@ -44,7 +45,7 @@ export const MoviesPage = () => {
                         : (
                             <Grid className="content">
                                 {
-                                    (banner) && <Banner/>
+                                    (bannerMovies) && <Banner item={bannerMovies}/>
                                 }
 
                                 <Grid className='container-carousel'>

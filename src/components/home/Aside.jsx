@@ -10,15 +10,12 @@ import MovieIcon from '@mui/icons-material/Movie';
 
 //Custom functions
 import { onSelectedType } from "../../store/slice";
-import {getBanner} from "../../api/getBannerVideo";
 
 export const Aside = ({active}) => {
     const dispatch = useDispatch();
-    const typeActive = document.querySelector(`.${active}`);
 
     useEffect(() => {
         dispatch(onSelectedType(active));
-        dispatch(getBanner(active));
     }, [])
 
     return (

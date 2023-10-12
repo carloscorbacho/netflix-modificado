@@ -4,12 +4,16 @@ export const seriesSlice = createSlice({
     name: 'series',
     initialState: {
         loadedSeries: false,
+        bannerSeries: null,
         popularSeries: null,
         topRatedSeries: null
     },
     reducers: {
         onLoadedSeries: ( state) => {
             state.loadedSeries = true
+        },
+        onBannerSeries: (state, {payload}) => {
+            state.bannerSeries = payload
         },
         onPopularSeries: (state, {payload}) => {
             state.popularSeries = payload
@@ -20,4 +24,4 @@ export const seriesSlice = createSlice({
     }
 });
 
-export const { onLoadedSeries, onPopularSeries, onTopRatedSeries } = seriesSlice.actions;
+export const { onLoadedSeries, onBannerSeries, onPopularSeries, onTopRatedSeries } = seriesSlice.actions;

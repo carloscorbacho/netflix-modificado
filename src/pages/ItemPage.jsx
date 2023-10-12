@@ -44,10 +44,11 @@ export const ItemPage = ({type}) => {
                         : (itemSelected) && (
                             <Grid className="content_detail"
                                   style={{background: `linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0.5)), url("${itemSelected.background}")`}}>
-                                <Grid className="image-poster">
-                                    <img src={itemSelected.poster} alt="Item Image"/>
-                                </Grid>
-                                <Grid className="details">
+                                <Grid className="mask">
+                                    <Grid className="image-poster">
+                                        <img src={itemSelected.poster} alt="Item Image"/>
+                                    </Grid>
+                                    <Grid className="details">
                                     <Typography variant="body1" className="titleItem">{itemSelected.titleItem}</Typography>
                                     <Grid className="rating">
                                         <Box className="content_stars">
@@ -61,6 +62,7 @@ export const ItemPage = ({type}) => {
                                     </Grid>
                                     <Typography variant="body1"
                                                 className="descriptionItem">{itemSelected.overview}</Typography>
+                                </Grid>
                                 </Grid>
                             </Grid>
                     )
