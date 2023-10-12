@@ -4,6 +4,10 @@
   margin: 0 auto;
   padding: 0 20px;
 
+  &:not(:last-child){
+    margin-bottom: 100px;
+  }
+
   .slick-slider {
     .slick-list {
       .slick-track {
@@ -94,6 +98,40 @@
             }
           }
         }
+      }
+    }
+    button{
+      height: 100%;
+      position: absolute;
+      z-index: 1;
+      width: 20px;
+      padding: 0;
+      min-width: 30px;
+      background-color: rgba(0 0 0 / .5);
+
+      &.slick-prev{
+        left: 0;
+      }
+
+      &.slick-next{
+        right: 0;
+      }
+
+      &:hover{
+        background-color: rgba(0 0 0 / .7);
+      }
+
+      &:before, &:before{
+        content: none !important;
+      }
+
+      .custom-prev-arrow, .custom-next-arrow{
+        color: white;
+        display: block;
+        transform: translate(4px, -50%);
+        top: 50%;
+        position: absolute;
+        width: 0.8em;
       }
     }
   }

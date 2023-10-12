@@ -4,7 +4,7 @@ import React, {useLayoutEffect, useState} from "react";
 //MaterialUI
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import {Grid, Typography} from "@mui/material";
+import {Grid, Typography, Button} from "@mui/material";
 
 //React slick (libreria carousel)
 import Slider from 'react-slick';
@@ -31,35 +31,37 @@ export const CarouselComponent = ({ titleCarousel = null, items = null }) => {
     const settings = {
         dots: false,
         infinite: true,
-        slidesToShow: 6,
-        slidesToScroll: 6,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         speed: 500,
-        arrows: false,
+        arrows: true,
+        rows: 1,
+        adaptiveHeight: true,
         responsive: [
             {
-                breakpoint: 425,
+                breakpoint: 600,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 2
                 }
             },
             {
-                breakpoint: 800,
+                breakpoint: 900,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3
+                }
+            },
+            {
+                breakpoint: 1200,
                 settings: {
                     slidesToShow: 4,
-                    slidesToScroll: 4,
-                }
-            },
-            {
-                breakpoint: 1100,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 5,
+                    slidesToScroll: 4
                 }
             }
-        ]/*,
+        ],
         prevArrow: <Button><ArrowBackIosNewIcon className="custom-prev-arrow" /></Button>,
-        nextArrow: <Button><ArrowForwardIosIcon className="custom-next-arrow" /></Button>*/
+        nextArrow: <Button><ArrowForwardIosIcon className="custom-next-arrow" /></Button>
     };
 
     return (

@@ -36,7 +36,7 @@ export const SeriesPage = () => {
 
 
     return (
-        <Grid className="home">
+        <Grid className="home home--series">
             <Header/>
             <Aside active="series" />
 
