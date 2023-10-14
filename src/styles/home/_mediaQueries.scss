@@ -1,0 +1,140 @@
+@media (max-width: 550px) {
+  .header {
+    .header_container {
+      .container-logo {
+        display: none;
+      }
+
+      .container-search {
+        width: calc(100% - 50px);
+      }
+    }
+  }
+}
+
+@media (min-height: 800px) {
+  &.home--movies, &.home--series{
+    .content {
+      .banner-container {
+        max-height: calc(100vh - ($height-header + $height-filterHeader));
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  &.home--movies, &.home--series{
+    .content {
+      .banner-container {
+        .banner-content {
+          &_info {
+            .position-info {
+              .title-banner {
+                font-size: 35px;
+              }
+
+              .p-banner, .btn-info {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 550px) and (max-width: 991px) {
+  &.home--movies, &.home--series{
+    .content {
+      .banner-container {
+        .banner-content {
+          &_info {
+            .position-info {
+              max-width: 70%;
+
+              .title-banner {
+                font-size: 30px;
+              }
+
+              .p-banner, .btn-info {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      .carousel-container{
+        h5{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  &.home--movies, &.home--series{
+    .content{
+      .container-carousel{
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 549px) {
+  &.home--movies, &.home--series{
+    .content{
+      .banner-container{
+        .position-info{
+          max-width: 80% !Important;
+
+          .title-banner{
+            font-size: 22px;
+          }
+
+          .p-banner{
+            display: none !important;
+          }
+
+          div{
+            a:not(:first-child){
+              display: none;
+            }
+          }
+
+          .btn-info{
+            font-size: 12px;
+
+            svg{
+              font-size: 17px;
+            }
+          }
+        }
+      }
+
+      .carousel-container{
+        h5{
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 499px) {
+  &.home--item{
+    .content{
+      .details{
+        padding: 10px 0 !Important;
+
+        .titleItem{
+          font-size: 25px !Important;
+        }
+      }
+    }
+  }
+}
