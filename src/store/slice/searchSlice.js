@@ -13,6 +13,11 @@ export const searchSlice = createSlice({
             state.items = null
             state.search = payload
         },
+        onResetItems: (state) => {
+            state.loadedSearchItems = false
+            state.items = null
+            state.search = ''
+        },
         itemsSearch: (state, {payload}) => {
             state.loadedSearchItems = true
             state.items = payload
@@ -21,4 +26,4 @@ export const searchSlice = createSlice({
 
 })
 
-export const {onLoadedItems, onResetItems, onSearch, itemsSearch} = searchSlice.actions;
+export const {onSearch, onResetItems, itemsSearch} = searchSlice.actions;

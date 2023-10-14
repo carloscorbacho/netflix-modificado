@@ -6,3 +6,4 @@ export * from './CarouselComponent';
 export * from './Header';
 export * from './ItemsSearch';
 export * from './LoadingComponent';
+export * from './Footer';

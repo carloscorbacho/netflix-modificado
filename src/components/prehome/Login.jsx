@@ -91,10 +91,10 @@ export const Login = () => {
 
     const formValid = (email = '', password = '') => {
         // Si no contiene @ y es inferior a 4 carácteres el email será incorrecto
-        const emailError = validator.isEmail(email) ? '' : 'El email es incorrecto.';
+        const emailError = validator.isEmail(email) ? '' : 'Introduce un email válido.';
 
         // Si la contraseña es inferior a 6 carácteres la contraseña será incorrecta
-        const passwordError = password.length <= 6 ? 'La password es incorrecta.' : '';
+        const passwordError = password.length <= 6 ? 'Introduce una contraseña superior a 6 carácteres.' : '';
 
         // Actualizamos los errores
         setErrors({

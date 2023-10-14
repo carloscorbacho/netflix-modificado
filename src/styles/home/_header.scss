@@ -78,17 +78,6 @@
         }
       }
     }
-
-    @media (max-width: 550px) {
-      & .container-logo{
-        display: none;
-      }
-
-      & .container-search{
-        width: calc(100% - 50px);
-      }
-
-    }
   }
 
 }

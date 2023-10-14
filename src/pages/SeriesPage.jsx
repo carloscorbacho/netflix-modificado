@@ -10,7 +10,7 @@ import {popularSeriesList, ratedSeriesList} from "../api/getComponentsSeries";
 import {onLoadedSeries} from "../store/slice";
 
 //Custom components
-import {Aside, Banner, CarouselComponent, Header, ItemsSearch, LoadingComponent} from "../components/home";
+import {Aside, Banner, CarouselComponent, Header, ItemsSearch, LoadingComponent, Footer} from "../components/home";
 import {getBanner} from "../api/getBannerVideo";
 
 export const SeriesPage = () => {
@@ -66,6 +66,8 @@ export const SeriesPage = () => {
                             </Grid>
                         )
             }
+
+            <Footer/>
         </Grid>
     )
 }

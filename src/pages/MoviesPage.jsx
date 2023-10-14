@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Grid} from "@mui/material";
 
 //Custom components
-import {Aside, Banner, CarouselComponent, Header, ItemsSearch, LoadingComponent} from "../components/home";
+import {Aside, Banner, CarouselComponent, Footer, Header, ItemsSearch, LoadingComponent} from "../components/home";
 
 //Custom functions
 import {popularMoviesList, ratedMoviesList} from "../api/getComponentsMovies";
@@ -63,6 +63,7 @@ export const MoviesPage = () => {
                             </Grid>
                         )
             }
+            <Footer/>
         </Grid>
     )
 }

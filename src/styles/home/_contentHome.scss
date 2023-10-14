@@ -1,14 +1,15 @@
+&.home--movies, &.home--series{
+  .content{
+    padding-bottom: 80px;
+  }
+}
+
 .content{
   background-color: black;
   color: white;
-  padding-bottom: 80px;
+  min-height: 100vh;
 
   .banner-container{
-    @media (min-height: 800px) {
-      max-height: calc(100vh - ($height-header + $height-filterHeader));
-      overflow: hidden;
-    }
-
     .banner-content{
       position: relative;
       padding-bottom: 56.25%;
@@ -42,6 +43,7 @@
           }
 
           .p-banner{
+            font-size: 16px;
             line-height: 1.5em;
             letter-spacing: .01em;
             font-weight: 300;

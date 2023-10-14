@@ -1,7 +1,7 @@
 //React
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 //MaterialUI
 import {Box, Grid, TextField} from "@mui/material";
@@ -14,13 +14,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import logo from "../../images/icon-plataforma.png";
 
 //Custom Functions
-import {onLogout, onSearch} from "../../store/slice";
-import {searchItems} from "../../api/getSearchItems";
+import {onLogout, onSearch, onResetItems } from "../../store/slice";
 
-export const Header = ({disabledSearch}) => {
+export const Header = () => {
     //Creamos el estado del buscador
     const { search:SearchRedux } = useSelector(state => state.search)
     const [ search, setSearch ] = useState(SearchRedux);
+    const {id} = useParams();
     const dispatch = useDispatch();
 
     //Función para cerrar sesión
@@ -34,8 +34,6 @@ export const Header = ({disabledSearch}) => {
     //Función para cuando hagan click en buscar
     const onsubmitSearch = (e) => {
         e.preventDefault();
-        //Enviaremos el contenido del buscador
-        dispatch(onSearch(search));
     }
 
     //Función para cambiar el contenido del input
@@ -51,6 +49,10 @@ export const Header = ({disabledSearch}) => {
         dispatch(onSearch(search));
     }, [search])
 
+    useEffect(() => {
+        dispatch(onResetItems());
+    }, [id]);
+
     return (
         <Grid className="header">
             <Grid className="header_container">
@@ -59,7 +61,7 @@ export const Header = ({disabledSearch}) => {
                         <img src={ logo } alt="logo" className="icon-platform" />
                     </Link>
                 </Grid>
-                <Grid className="container-search" sx={(disabledSearch) && {display: 'none' }}>
+                <Grid className="container-search">
                     <form onSubmit={ onsubmitSearch }>
                         <Box className="input-box">
                             <TextField
