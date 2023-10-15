@@ -4,23 +4,20 @@ import {onBannerMovies, onBannerSeries} from "../store/slice";
 //Función para actualizar el banner en funciíon si es pelicula o serie
 export const getBanner = (type) => {
     return async (dispatch, getState) => {
-        switch (type) {
-            case 'series':
-                //Obtenemos los id
-                const idsSeries = await discoverSeriesIds();
-                //Buscamos la serie con el video (no todas tienen video)
-                const serie = await discoverSerieBanner(idsSeries);
-                //Actualizamos el estado
-                dispatch(onBannerSeries(serie));
-                break;
-            case 'movies':
-                //Obtenemos los id
-                const idsMovies = await discoverMoviesIds();
-                //Buscamos las peliculas con el video (no todas tienen video)
-                const movie = await discoverMovieBanner(idsMovies);
-                //Actualizamos el estado
-                dispatch(onBannerMovies(movie));
-                break;
+        if(type === 'series') {
+            //Obtenemos los id
+            const idsSeries = await discoverSeriesIds();
+            //Buscamos la serie con el video (no todas tienen video)
+            const serie = await discoverSerieBanner(idsSeries);
+            //Actualizamos el estado
+            dispatch(onBannerSeries(serie));
+        } else{
+            //Obtenemos los id
+            const idsMovies = await discoverMoviesIds();
+            //Buscamos las peliculas con el video (no todas tienen video)
+            const movie = await discoverMovieBanner(idsMovies);
+            //Actualizamos el estado
+            dispatch(onBannerMovies(movie));
         }
     }
 }
@@ -75,7 +72,7 @@ const discoverMovieBanner = async (ids) => {
                 const {data} = await instanceAPI.get(urlVideos);
 
                 //Filtramos que sea de tipo trailer
-                const video = data.results.filter((item) => item.type == 'Trailer');
+                const video = data.results.filter((item) => item.type === 'Trailer');
 
                 //En cuento tengamos un resultado salimos del bucle
                 if (video.length > 0) {
@@ -177,7 +174,7 @@ const discoverSerieBanner = async (ids) => {
                 const {data} = await instanceAPI.get(urlVideos);
 
                 //Filtramos que sea de tipo trailer
-                const video = data.results.filter((item) => item.type == 'Trailer');
+                const video = data.results.filter((item) => item.type === 'Trailer');
 
                 //En cuento tengamos un resultado salimos del bucle
                 if (video.length > 0) {
@@ -194,7 +191,7 @@ const discoverSerieBanner = async (ids) => {
         const {video} = videos;
 
         //Hacemos una búsqueda para obtener más info del id del video
-        const urlDetails = `/tv/${id_item}`;
+        const urlDetails = `/tv/${videos.id_item}`;
         const {data} = await instanceAPI.get(urlDetails);
 
         const {id:id_item, name:title, homepage, overview} = data;

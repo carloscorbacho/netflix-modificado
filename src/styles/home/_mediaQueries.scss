@@ -138,3 +138,17 @@
     }
   }
 }
+
+@media (hover: none) {
+  .card {
+    &_content {
+      .mask {
+        height: 100% !important;
+
+        .rating, .dateItem{
+          display: none !Important;
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 //React
-import React, {useEffect} from "react";
+import React from "react";
 import {Link} from 'react-router-dom';
 
 //MaterialUI
@@ -9,10 +9,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 //Moment (libreria manipulación fechas y horas)
 import moment from "moment";
-import {useDispatch} from "react-redux";
 
-//Custom functions
-import {onResetItems} from '../../store/slice'
 
 export const CardItem = ({item}) => {
     const {id, type, img_poster, title, date, vote_average, vote_count } = item;
@@ -23,7 +20,7 @@ export const CardItem = ({item}) => {
         <Card className="card">
             <Link to={link}>
                 <Grid className="card_content">
-                    <img src={img_poster} alt="Card Image"/>
+                    <img src={img_poster} alt={title} />
                     <Grid className="mask">
                         <Typography variant="body1" className="titleItem">{title}</Typography>
                         <Typography variant="body1" className="dateItem">{dateItem}</Typography>

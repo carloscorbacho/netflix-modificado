@@ -1,4 +1,4 @@
-import {Prehome, ItemPage, MoviesPage, SeriesPage, ItemsSearch} from './pages';
+import {Prehome, ItemPage, MoviesPage, SeriesPage} from './pages';
 import { Navigate, Route, Routes } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
